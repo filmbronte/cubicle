@@ -11,6 +11,8 @@ exports.create = (cubeData) => {
 
 	cubes.push(newCube);
 
+	console.log(cubes);
+
 	return newCube;
 }
 
