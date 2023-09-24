@@ -12,7 +12,10 @@ expressConfig(app);
 
 handlebarsConfig(app);
 
-app.use('/cubes', cubeController);
 app.use(homeController);
+app.use('/cubes', cubeController);
+app.get('*', (req, res) => {
+	res.redirect('/notfound')
+})
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
