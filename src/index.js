@@ -1,5 +1,7 @@
 const express = require('express');
 
+const dbConnect = require('./config/dbConfig');
+
 const expressConfig = require('./config/expressConfig');
 const handlebarsConfig = require('./config/handlebarsConfig');
 const routes = require('./routes');
@@ -10,6 +12,12 @@ const PORT = 42069;
 expressConfig(app);
 handlebarsConfig(app);
 
+dbConnect()
+	.then(() => console.log('DB connected successfully'))
+	.catch(err => console.log('DB error:', err));
+
+
 app.use(routes);
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
+
