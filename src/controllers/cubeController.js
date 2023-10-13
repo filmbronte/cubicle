@@ -4,7 +4,7 @@ const cubeManager = require('../managers/cubeManager');
 const accessoryManager = require('../managers/accessoryManager');
 
 router.get('/create', (req, res) => {
-	res.render('create')
+	res.render('cube/create')
 })
 router.get('/:cubeId/details', async (req, res) => {
 	const cube = await cubeManager.getOne(req.params.cubeId).lean();
@@ -12,7 +12,7 @@ router.get('/:cubeId/details', async (req, res) => {
 	if (!cube) {
 		return res.redirect('/notfound')
 	}
-	res.render('details', { cube });
+	res.render('cube/details', { cube });
 })
 
 router.post('/create', async (req, res) => {
