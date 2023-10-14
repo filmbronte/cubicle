@@ -10,6 +10,10 @@ exports.auth = async (req, res, next) => {
 
 			req.user = user;
 
+			res.locals.user = user;
+
+			res.locals.isAuthenticated = true;
+
 			next();
 		} catch(e) {
 			res.clearCookie('auth');
@@ -18,4 +22,11 @@ exports.auth = async (req, res, next) => {
 	} else {
 		next();
 	}
+}
+
+exports.isAuth = (req, res, next) => {
+	if (!req.user) {
+		return res.redirect('/users/login');
+	}	
+	next();
 }
