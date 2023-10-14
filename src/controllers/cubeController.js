@@ -14,7 +14,10 @@ router.get('/:cubeId/details', async (req, res) => {
 	if (!cube) {
 		return res.redirect('/notfound')
 	}
-	res.render('cube/details', { cube });
+
+	const isOwner = cube.owner?.toString() === req.user._id;
+
+	res.render('cube/details', { cube, isOwner });
 })
 
 router.post('/create', async (req, res) => {
