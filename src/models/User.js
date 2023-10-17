@@ -6,17 +6,19 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		minLength: 5,
-		match: /^[A-Za-z0-9]+$/,
+		match: [/^[A-Za-z0-9]+$/, 'Username must be alphanumeric!'],
 		unique: true,
 	},
 	password: {
 		type: String,
-		// validate: {
-		// 	validator: function(value) {
-		// 	return this.repeatPassword === value;
-		// },
-		// 	message: `Passwords do not match!`,
-		// },
+		required: true,
+		validate: {
+			validator: function(value) {
+			return /^[A-Za-z0-9]+$/.test(value);
+		},
+			message: `Invalid password!`,
+		},
+		minLength: 8,
 	},
 });
 
