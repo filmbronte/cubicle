@@ -1,17 +1,18 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const {Mongoose} = require("mongoose");
 
 const userSchema = new mongoose.Schema({
 	username: {
 		type: String,
-		required: true,
+		required: [true, 'Username is required!'],
 		minLength: 5,
 		match: [/^[A-Za-z0-9]+$/, 'Username must be alphanumeric!'],
 		unique: true,
 	},
 	password: {
 		type: String,
-		required: true,
+		required: [true, 'Password is required!'],
 		validate: {
 			validator: function(value) {
 			return /^[A-Za-z0-9]+$/.test(value);
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('repeatPassword')
 	.set(function(value) {
 		if (value !== this.password) {
-			throw new mongoose.MongooseError('Passwords do not match!');
+			throw new Error('Passwords do not match!');
 		}
 	})
 
